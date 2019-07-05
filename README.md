@@ -21,4 +21,4 @@ track of tasks to be done and their status. While we’ll start today with a bas
 
  
 ## Deployed Site
-- http://taskmaster1-dev.us-east-2.elasticbeanstalk.com
+- http://taskmaster-dev-1.us-west-1.elasticbeanstalk.com/
