@@ -72,7 +72,7 @@ public class TaskController {
     @PostMapping("/tasks/{id}/images")
     public Task uploadFile(
             @PathVariable String id,
-            @RequestPart(value = "file") MultipartFile file
+            @RequestPart MultipartFile file
     ){
         Task task = taskRepository.findById(id).get();
         String pic = this.s3Client.uploadFile(file);
