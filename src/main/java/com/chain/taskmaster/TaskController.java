@@ -4,12 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class TaskController {
+    private S3Client s3Client;
+
     @Autowired
     TaskRepository taskRepository;
+
+    @Autowired
+    TaskController(S3Client s3Client) {
+        this.s3Client = s3Client;
+    }
 
     @GetMapping("/tasks")
     public Iterable<Task> getTask(){
@@ -57,6 +67,18 @@ public class TaskController {
         taskRepository.save(task);
         List<Task> tasks = (List) taskRepository.findAll();
         return tasks;
+    }
+
+    @PostMapping("/tasks/{id}/images")
+    public Task uploadFile(
+            @PathVariable String id,
+            @RequestPart(value = "file") MultipartFile file
+    ){
+        Task task = taskRepository.findById(id).get();
+        String pic = this.s3Client.uploadFile(file);
+        task.setPic(pic);
+        taskRepository.save(task);
+        return task;
     }
 
     @DeleteMapping("/tasks/{id}")
