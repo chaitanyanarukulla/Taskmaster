@@ -11,6 +11,8 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class TaskController {
+
+//    @Autowired
     private S3Client s3Client;
 
     @Autowired
