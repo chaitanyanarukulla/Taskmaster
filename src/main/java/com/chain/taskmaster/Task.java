@@ -15,11 +15,14 @@ public class Task {
     private String description;
     private String status;
     private String pic;
+
     @DynamoDBAttribute
     private String assignee;
 
 
     public Task() {}
+
+    public Task(String pic){this.pic = pic;}
 
     public Task(String title, String description, String status, String assignee){
         this.title = title;
@@ -27,7 +30,7 @@ public class Task {
         this.status = status;
         this.assignee = assignee;
     }
-
+    @DynamoDBAttribute
     public String getPic() {
         return pic;
     }
@@ -74,10 +77,12 @@ public class Task {
         return status;
     }
 
+
     public void setStatus(String status) {
         this.status = status;
     }
 
+    @DynamoDBAttribute
     public String getAssignee() {
         return assignee;
     }

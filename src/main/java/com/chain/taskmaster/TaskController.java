@@ -11,6 +11,8 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class TaskController {
+
+//    @Autowired
     private S3Client s3Client;
 
     @Autowired
@@ -72,7 +74,7 @@ public class TaskController {
     @PostMapping("/tasks/{id}/images")
     public Task uploadFile(
             @PathVariable String id,
-            @RequestPart MultipartFile file
+            @RequestPart(value = "file") MultipartFile file
     ){
         Task task = taskRepository.findById(id).get();
         String pic = this.s3Client.uploadFile(file);
