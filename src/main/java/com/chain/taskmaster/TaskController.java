@@ -79,6 +79,9 @@ public class TaskController {
         Task task = taskRepository.findById(id).get();
         String pic = this.s3Client.uploadFile(file);
         task.setPic(pic);
+        String[] blah = pic.split("/");
+        String tb = blah[blah.length -1];
+        task.setRepic("https://reacttaskapp-resized.s3-us-west-1.amazonaws.com/resized-" + tb);
         taskRepository.save(task);
         return task;
     }
